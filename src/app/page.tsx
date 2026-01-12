@@ -18,13 +18,13 @@ export default function DataList() {
   if (loading || !data) return (<div> Loading...</div>);
   
   return (
-    <div className='min-h-screen flex justify-center bg-white px-6'>
-      <div className='mx-auto w-4xl'>
+    <main className='min-h-screen flex justify-center bg-white px-6'>
+      <section className='mx-auto w-4xl'>
         <Header />
         <Paginator page={data.page} total={data.total} pageSize={data.pageSize}/>
         <TableHeader/>
         
-        <div className='divide-y divide-gray-300'>
+        <ul className='divide-y divide-gray-300'>
           {data.data.map(client => (
             <ClientItem
               key={client.id}
@@ -32,10 +32,10 @@ export default function DataList() {
               job={client.job.title}
               address={`${client.location.street} ${client.location.city} ${client.location.state}`}/>
           ))}
-        </div>
+        </ul>
         
         <Paginator page={data.page} total={data.total} pageSize={data.pageSize}/>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }
