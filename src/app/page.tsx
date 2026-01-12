@@ -1,66 +1,36 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client'
 
-export default function Home() {
+import { useSearchParams } from 'next/navigation';
+import { useClients } from '@/app/hooks/useClients';
+import Paginator from '@/app/components/Paginator';
+import ClientItem from '@/app/components/ClientItem';
+import Header from '@/app/components/Header';
+
+const PAGE_SIZE = 20;
+
+export default function DataList() {
+  const searchParams = useSearchParams();
+  const page = Number(searchParams.get('page') ?? 1);
+
+  const { data, loading } = useClients(page, PAGE_SIZE);
+
+  if (loading || !data) return (<div> Loading...</div>);
+  
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div>
+      <div>
+        <Header />
+        
+        {data.data.map(client => (
+          <ClientItem
+            key={client.id}
+            name={`${client.name.first} ${client.name.middle} ${client.name.last}`}
+            job={client.job.title}
+            address={`${client.location.street} ${client.location.city} ${client.location.state}`}/>
+        ))}
+      </div>
+      
+      <Paginator page={data.page} total={data.total} pageSize={data.pageSize}/>
     </div>
   );
 }
