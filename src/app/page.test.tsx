@@ -24,21 +24,6 @@ describe('DataList component', () => {
     afterEach(() => {
         (useClients as vi.mock).mockClear();
     });
-    
-    it('should render loading state when data is loading', () => {
-        (useSearchParams as vi.mock).mockReturnValue(
-            new URLSearchParams("page=2")
-        );
-
-        (useClients as vi.mock).mockReturnValue({
-            data: null,
-            loading: true
-        });
-
-        render(<DataList />);
-        
-        expect(screen.getByText('Loading...')).toBeInTheDocument();
-    });
 
     it('should render data when loaded', () => {
         (useSearchParams as vi.mock).mockReturnValue(
@@ -68,5 +53,22 @@ describe('DataList component', () => {
         render(<DataList />);
         
         expect(screen.getByText('John M Doe')).toBeInTheDocument();
+        expect(screen.getByText('123 Main NYC NY')).toBeInTheDocument();
+        expect(screen.getByText('Developer')).toBeInTheDocument();
+    });
+    
+    it('should render loading state when data is loading', () => {
+        (useSearchParams as vi.mock).mockReturnValue(
+            new URLSearchParams("page=2")
+        );
+
+        (useClients as vi.mock).mockReturnValue({
+            data: null,
+            loading: true
+        });
+
+        render(<DataList />);
+        
+        expect(screen.getByText('Loading...')).toBeInTheDocument();
     });
 });
