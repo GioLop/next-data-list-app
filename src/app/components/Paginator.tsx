@@ -24,22 +24,28 @@ export default function Paginator({ page, total, pageSize }:PaginatoProps) {
     };
 
     return (
-        <div>
+        <div className='my-4 flex items-center justify-center gap-6 text-sm'>
             <button
+                className={`${page !== 1  && 'hover:underline cursor-pointer'}`}
                 disabled={page === 1} 
                 onClick={handleGoToPage(page - 1)}>
                 { CTAS.PREVIOUS }
             </button>
             
-            { Array.from({ length: totalPages }, (_, index) => (
-                <button
-                    key={index}
-                    onClick={handleGoToPage(index + 1)}>
-                    {index + 1}
-                </button>
-            )) }
+            <div className='flex gap-3'>
+                {Array.from({ length: totalPages }, (_, index) => (
+                    <button
+                        className={`${page === index +1 && 'font-semibold'} hover:underline cursor-pointer`}
+                        key={index}
+                        onClick={handleGoToPage(index + 1)}>
+                        {index + 1}
+                    </button>
+                ))}
+            </div>
+            
             
             <button
+                className={`${page !== totalPages && 'hover:underline cursor-pointer'}`}
                 disabled={page === totalPages} 
                 onClick={handleGoToPage(page + 1)}>
                 { CTAS.NEXT }
