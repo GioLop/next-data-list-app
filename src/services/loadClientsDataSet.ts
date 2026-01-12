@@ -2,11 +2,15 @@ import { Client } from "@/app/types";
 
 const EXTERNAL_API_URL_SOURCE = 'https://dummyjson.com/c/81a3-7acb-406a-8571';
 
-const MESSAGES = {
+export const MESSAGES = {
     ERROR: 'Failed to fetch clients data set'
 };
 
 let localCache: Client[] = [];
+
+export function clearCache() {
+    localCache = [];
+}
 
 export async function loadClientsDataSet ():Promise<Client[]> {
     if (localCache.length > 0) return localCache;

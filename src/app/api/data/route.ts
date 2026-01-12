@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { loadClientsDataSet } from "@/services/loadClientsDataSet.server";
+import { loadClientsDataSet } from "@/services/loadClientsDataSet";
 import { dataPaginator } from "@/utils/dataPaginator";
 
 export async function GET(request: NextRequest) {

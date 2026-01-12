@@ -1,6 +1,6 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 
-const CTAS = {
+export const CTAS = {
     PREVIOUS: '<< Prev',
     NEXT: 'Next >>'
 };

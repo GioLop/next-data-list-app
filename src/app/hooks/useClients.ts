@@ -11,7 +11,7 @@ export function useClients(page: number, pageSize: number) {
             
             const response = await fetch(`/api/data/?page=${page}&pageSize=${pageSize}`);
             const result = await response.json();
-            
+
             setData(result as PaginatedData);
             setLoading(false);
         })()
