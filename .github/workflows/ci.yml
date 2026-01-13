@@ -19,14 +19,19 @@ jobs:
         node-version: 20
         cache: 'npm'
     
-    - name: Install deps
-      run: npm i
+    - name: Install dependencies
+      run: npm ci
     
     - name: Run unit-tests
       run: npm run test
     
     - name: Start Docker container
-      run: docker run -d -p 3000:3000 --name next-e2e-app next-e2e
+      run: |
+          docker run -d \
+            -p 3000:3000 \
+            --name next-app \
+            -e NODE_ENV=test \
+            next-app-e2e
 
     - name: Wait until Docker container is ready
       run: |
