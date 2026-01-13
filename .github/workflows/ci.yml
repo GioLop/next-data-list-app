@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  unittest-build-e2e:
+    runs-on: ubuntu-latest
+  
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js runtime
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: 'npm'
+    
+    - name: Run unit-tests
+      run: npm run test
+    
+    - name: Start Docker container
+      run: npm run test
+      run: docker run -d -p 3000:3000 --name next-e2e-app next-e2e
+
+    - name: Wait until Docker container is ready
+      run: |
+        for i in {1..30}; do
+          if curl -s http://localhost:3000 > /dev/null; then
+            echo "App is ready and running"
+            exit 0
+          fi
+          sleep 1
+        done
+        echo "App did not start in time"
+        exit 1
+    
+    - name: Install Playwright browsers
+      run: npx playwright install --with-deps
+    
+    - name: Run e2e tests
+      run: npm run test:e2e
+    
+    - name: Stop container
+      if: always()
+      run: docker stop next-app && docker rm next-app
