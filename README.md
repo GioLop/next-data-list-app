@@ -41,7 +41,7 @@ npm start
 npm run test
 ```
 
-#### Wtach Mode
+#### Watch Mode
 
 ```bash
 npm run test:watch
@@ -91,3 +91,55 @@ tests/
     └── pagination.spec.ts         # E2E pagination tests
 ```
 
+## Key Components
+
+### DataList (page.tsx)
+Main page component that:
+- Reads the current page from URL search parameters
+- Fetches paginated client data
+- Renders the paginator, table header, and client list
+
+### Paginator
+Pagination control component that:
+- Displays page numbers
+- Handles previous/next navigation
+- Updates the URL search parameters
+
+### useClients Hook
+Custom hook that:
+- Fetches data from `/api/data/` endpoint
+- Handles loading state
+- Manages pagination based on page and pageSize
+
+### API Route (/api/data)
+Server endpoint that:
+- Receives `page` and `pageSize` query parameters
+- Returns paginated client data with total count
+
+## Technologies
+
+- **Framework**: Next.js 15
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Testing**: Vitest, React Testing Library, Playwright
+- **Package Manager**: npm
+
+## API
+
+### GET /api/data
+
+Returns paginated client data.
+
+**Query Parameters:**
+- `page` (number): Page number (default: 1)
+- `pageSize` (number): Number of items per page (default: 20)
+
+**Response:**
+```json
+{
+  "data": [...],
+  "page": 1,
+  "pageSize": 20,
+  "total": 500
+}
+```
