@@ -24,6 +24,9 @@ jobs:
     
     - name: Run unit-tests
       run: npm run test
+
+    - name: Build Docker image
+      run: docker build -t next-app-e2e .
     
     - name: Start Docker container
       run: |

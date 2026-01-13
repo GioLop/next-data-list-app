@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next Data List App
+
+A Next.js application that displays a paginated list of client data with a clean, responsive UI.
+
+## Features
+
+- **Paginated Data Display**: Shows 20 clients per page with navigation controls
+- **Server-Side Data Loading**: Fetches client data from a mock dataset
+- **Client-Side Pagination**: Smooth page navigation using URL search parameters
+- **Responsive Design**: Built with Tailwind CSS for mobile-friendly layouts
+- **Type-Safe**: Full TypeScript support throughout the application
+- **Comprehensive Testing**: Unit tests with Vitest and E2E tests with Playwright
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+ 
+- npm or yarn
+
+### Installation
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
-
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## Testing
 
-To learn more about Next.js, take a look at the following resources:
+### Unit Tests
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run test
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+#### Wtach Mode
 
-## Deploy on Vercel
+```bash
+npm run test:watch
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#### Coverage report
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run test:coverage
+```
+
+### E2E Tests
+
+```bash
+npm run test:e2e
+```
+
+### Project Structure
+
+```bash
+src/
+├── app/
+│   ├── api/
+│   │   └── data/
+│   │       └── route.ts          # API endpoint for paginated data
+│   ├── components/
+│   │   ├── ClientItem.tsx         # Individual client list item
+│   │   ├── Header.tsx             # Page header
+│   │   ├── Paginator.tsx          # Pagination controls
+│   │   └── TableHeader.tsx        # Table column headers
+│   ├── hooks/
+│   │   └── useClients.ts          # Hook for fetching client data
+│   ├── page.tsx                   # Main page component
+│   ├── layout.tsx                 # Root layout
+│   ├── types.ts                   # TypeScript type definitions
+│   └── globals.css                # Global styles
+├── services/
+│   └── loadClientsDataSet.ts      # Mock data loading service
+├── utils/
+│   └── dataPaginator.ts           # Pagination utility function
+└── test/
+    ├── setup.ts                   # Vitest setup
+    └── mocks/
+        └── mockUsers.ts           # Mock user data
+tests/
+└── e2e/
+    └── pagination.spec.ts         # E2E pagination tests
+```
+
