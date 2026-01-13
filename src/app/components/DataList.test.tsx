@@ -1,10 +1,10 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { useClients } from '@/app/hooks/useClients';
-import DataList from './page';
+import DataList from './DataList';
 import { useSearchParams } from 'next/navigation';
 
-vi.mock('./hooks/useClients', () => ({
+vi.mock('@/app/hooks/useClients', () => ({
   useClients: vi.fn(),
 }));
 
