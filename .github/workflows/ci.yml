@@ -9,8 +9,7 @@ on:
 jobs:
   unittest-build-e2e:
     runs-on: ubuntu-latest
-  
-  steps:
+    steps:
     - name: Checkout repository
       uses: actions/checkout@v4
     
@@ -24,7 +23,6 @@ jobs:
       run: npm run test
     
     - name: Start Docker container
-      run: npm run test
       run: docker run -d -p 3000:3000 --name next-e2e-app next-e2e
 
     - name: Wait until Docker container is ready
